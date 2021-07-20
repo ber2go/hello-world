@@ -118,7 +118,7 @@ workflows:
               only: main
   build-deploy-pr:
     jobs:
-      - build
+      - build:
           filters:
             branches:
               only: /pr\/.*/
