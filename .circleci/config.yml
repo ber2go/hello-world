@@ -14,10 +14,10 @@ jobs:
             set -x
             if [ "${CIRCLE_BRANCH}" == "main" ]
             then
-              DOCKER_IMAGE_TAG=v${CIRCLE_BUILD_NUM}
+              DOCKER_IMAGE_TAG=v${CIRCLE_SHA1}
               echo "$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG" > full_docker_image_name
             else
-              DOCKER_IMAGE_TAG=${CIRCLE_BRANCH}
+              DOCKER_IMAGE_TAG=${CIRCLE_PR_NUMBER}
               echo "hello-app:$DOCKER_IMAGE_TAG" > full_docker_image_name
             fi
       - run:
