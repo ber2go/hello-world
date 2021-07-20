@@ -18,9 +18,10 @@ kind: Deployment
 metadata:
   name: helloweb
 spec:
-  matchLabels:
-    app: hello
-    tier: web
+  selector:
+    matchLabels:
+      app: hello
+      tier: web
   template:
     metadata:
       labels:
