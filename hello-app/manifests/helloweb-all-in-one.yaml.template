@@ -17,9 +17,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: helloweb
-  labels:
-    app: hello
 spec:
+  matchLabels:
+    app: hello
+    tier: web
   template:
     metadata:
       labels:
