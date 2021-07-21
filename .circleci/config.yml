@@ -15,12 +15,15 @@ jobs:
             if [ "${CIRCLE_BRANCH}" == "main" ]
             then
               APP_NAME=$CIRCLE_PROJECT_REPONAME
+              NAMESPACE=default
             else
               APP_NAME=pr-${CIRCLE_PULL_REQUEST##*/}-${CIRCLE_PROJECT_REPONAME}
+              NAMESPACE=$APP_NAME
             fi
             DOCKER_IMAGE_TAG=$CIRCLE_SHA1
             echo "$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG" > full_docker_image_name
             echo "$APP_NAME" > app_name
+            echo "$NAMESPACE" > namespace
       - run:
           name: Build image
           command: |
@@ -46,7 +49,7 @@ jobs:
           paths:
             - full_docker_image_name
             - app_name
-
+            - namespace
   deploy:
     <<: *defaults
     steps:
@@ -77,10 +80,12 @@ jobs:
             fi
             FULL_DOCKER_IMAGE_NAME=$(cat workspace/full_docker_image_name)
             APP_NAME=$(cat workspace/app_name)
+            NAMESPACE=$(cat workspace/namespace)
             # Replace DOCKER_IMAGE_NAME placeholder in manifest with actual image name
             KUBE_CONFIG=$(cat hello-app/manifests/helloweb-all-in-one.yaml.template | sed -e "s|DOCKER_IMAGE_NAME|$FULL_DOCKER_IMAGE_NAME|g" -e "s|APP_NAME|$APP_NAME|g")
             echo "$KUBE_CONFIG" | kubectl apply -f -
             # Wait for deployment to finish
+            kubectl create $NAMESPACE 
             kubectl rollout status deployment/helloweb
             kubectl get pods
 
