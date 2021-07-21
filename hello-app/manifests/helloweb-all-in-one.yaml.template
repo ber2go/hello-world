@@ -41,15 +41,15 @@ metadata:
   annotations:
     # If the class annotation is not specified it defaults to "gce".
     kubernetes.io/ingress.class: "gce"
-  spec:
-    rules:
-      - host: APP_NAME.ber2go.com
-        http:
-          paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: APP_NAME
-                port:
-                  number: 60001
+spec:
+  rules:
+    - host: APP_NAME.ber2go.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: APP_NAME
+              port:
+                number: 60001
