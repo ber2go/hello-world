@@ -84,7 +84,9 @@ jobs:
             # Replace placeholders in manifest
             KUBE_CONFIG=$(cat hello-app/manifests/helloweb-all-in-one.yaml.template | sed -e "s|DOCKER_IMAGE_NAME|$FULL_DOCKER_IMAGE_NAME|g" -e "s|APP_NAME|$APP_NAME|g")
             echo "$KUBE_CONFIG" | kubectl apply -f -
-            INGRESS_CONFIG=$(cat hello-app/manifests/patch-ingress.json | sed -e "s|APP_NAME|$APP_NAME|g")
+            # Update ingress service 
+            RULE_INDEX=$(kubectl get ingress my-ingress -o json | jq '(.spec.rules[].host | [. == "$APP_NAME.ber2go.com"] | index(true) | numbers)')
+            INGRESS_CONFIG=$(cat hello-app/manifests/patch-ingress.json | sed -e "s|APP_NAME|$APP_NAME|g" -e "s|RULE_INDEX|$RULE_INDEX")
             kubectl patch ingress my-ingress --type "json" -p "$INGRESS_CONFIG"
             # Wait for deployment to finish
             kubectl rollout status deployment/helloweb
