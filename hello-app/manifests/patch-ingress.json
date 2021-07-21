@@ -9,8 +9,12 @@
           "path": "/",
           "pathType": "Prefix",
           "backend": {
-            "serviceName": "APP_NAME",
-            "servicePort": 60001
+            "service":{
+              "name":"APP_NAME",
+              "port":{
+                "number": 60001
+              }
+            } 
           }
         }
       ]
