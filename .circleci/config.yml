@@ -14,12 +14,13 @@ jobs:
             set -x
             if [ "${CIRCLE_BRANCH}" == "main" ]
             then
-              $APP_NAME=$CIRCLE_PROJECT_REPONAME
+              APP_NAME=$CIRCLE_PROJECT_REPONAME
             else
-              $APP_NAME=pr-${CIRCLE_PR_NUMBER}-$CIRCLE_PROJECT_REPONAME
+              APP_NAME=pr-${CIRCLE_PR_NUMBER}-$CIRCLE_PROJECT_REPONAME
             fi
             DOCKER_IMAGE_TAG=$CIRCLE_SHA1
             echo "$DOCKER_IMAGE_NAME:$DOCKER_IMAGE_TAG" > full_docker_image_name
+            echo "APP_NAME" > app_name
       - run:
           name: Build image
           command: |
