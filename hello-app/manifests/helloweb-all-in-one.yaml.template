@@ -10,7 +10,7 @@ spec:
     tier: web
   ports:
   - port: 60001
-    targetPort: 8080
+    targetPort: 8081
   type: NodePort
 ---
 apiVersion: apps/v1
@@ -32,4 +32,4 @@ spec:
       - name: hello-app
         image: DOCKER_IMAGE_NAME
         ports:
-        - containerPort: 8080
+        - containerPort: 8081
