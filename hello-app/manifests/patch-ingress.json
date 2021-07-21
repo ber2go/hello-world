@@ -1,0 +1,19 @@
+[{
+  "op": "add",
+  "path": "/spec/rules/-",
+  "value": {
+    "host": "APP_NAME.ber2go.com",
+    "http": {
+      "paths": [
+        {
+          "path": "/",
+          "pathType": "Prefix",
+          "backend": {
+            "serviceName": "APP_NAME",
+            "servicePort": 60001
+          }
+        }
+      ]
+    }
+  }
+}]
