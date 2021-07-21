@@ -42,7 +42,7 @@ jobs:
           command: |
             set -x
             FULL_DOCKER_IMAGE_NAME=$(cat full_docker_image_name)
-            docker run -d --rm -p 8080:8080 --name hello-app $FULL_DOCKER_IMAGE_NAME
+            docker run -d --rm -p 8081:8081 --name hello-app $FULL_DOCKER_IMAGE_NAME
             docker run --network container:hello-app appropriate/curl --retry 10 --retry-connrefused http://localhost:8080
       - persist_to_workspace:
           root: .
