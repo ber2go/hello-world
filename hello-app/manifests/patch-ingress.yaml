@@ -1,0 +1,12 @@
+spec:
+  rules:
+    - host: APP_NAME.ber2go.com
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: APP_NAME
+              port:
+                number: 60001
