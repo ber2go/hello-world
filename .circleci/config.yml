@@ -89,12 +89,10 @@ jobs:
             HOST=$(kubectl get ingress my-ingress -o json | jq '[.spec.rules[].host]' | grep "$APP_NAME")
             if [ -z "${HOST}" ]
             then
-              echo "empty"
-            else
-              echo "not empty"
-            fi
-            #INGRESS_CONFIG=$(cat hello-app/manifests/patch-ingress.json | sed -e "s|APP_NAME|$APP_NAME|g")
-            #kubectl patch ingress my-ingress --type "json" -p "$INGRESS_CONFIG"
+              echo "Updating ingress controller"
+              kubectl patch ingress my-ingress --type "json" -p "$(cat hello-app/manifests/patch-ingress.json | sed -e "s|APP_NAME|$APP_NAME|g")"
+            if
+            
             # Wait for deployment to finish
             # kubectl rollout status deployment/helloweb
             # kubectl get pods
