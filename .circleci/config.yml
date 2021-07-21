@@ -86,11 +86,18 @@ jobs:
             echo "$KUBE_CONFIG" | kubectl apply -f -
             # Update ingress service 
             RULE_INDEX=$(kubectl get ingress my-ingress -o json | jq '(.spec.rules[].host | [. == "$APP_NAME.ber2go.com"] | index(true) | numbers)')
-            INGRESS_CONFIG=$(cat hello-app/manifests/patch-ingress.json | sed -e "s|APP_NAME|$APP_NAME|g" -e "s|RULE_INDEX|$RULE_INDEX")
-            kubectl patch ingress my-ingress --type "json" -p "$INGRESS_CONFIG"
+            HOST=$(kubectl get ingress my-ingress -o json | jq '[.spec.rules[].host]' | grep "$APP_NAME")
+            if [ -z "${HOST}" ]
+            then
+              echo "empty"
+            else
+              echo "not empty"
+            fi
+            #INGRESS_CONFIG=$(cat hello-app/manifests/patch-ingress.json | sed -e "s|APP_NAME|$APP_NAME|g")
+            #kubectl patch ingress my-ingress --type "json" -p "$INGRESS_CONFIG"
             # Wait for deployment to finish
-            kubectl rollout status deployment/helloweb
-            kubectl get pods
+            # kubectl rollout status deployment/helloweb
+            # kubectl get pods
 
 
       # - run:

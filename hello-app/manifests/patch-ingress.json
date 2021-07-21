@@ -1,6 +1,6 @@
 [{
-  "op": "re",
-  "path": "/spec/rules/RULE_INDEX",
+  "op": "add",
+  "path": "/spec/rules/-",
   "value": {
     "host": "APP_NAME.ber2go.com",
     "http": {
