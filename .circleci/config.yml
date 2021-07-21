@@ -85,7 +85,7 @@ jobs:
             KUBE_CONFIG=$(cat hello-app/manifests/helloweb-all-in-one.yaml.template | sed -e "s|DOCKER_IMAGE_NAME|$FULL_DOCKER_IMAGE_NAME|g" -e "s|APP_NAME|$APP_NAME|g")
             echo "$KUBE_CONFIG" | kubectl apply -f -
             INGRESS_CONFIG=$(cat hello-app/manifests/patch-ingress.yaml | sed -e "s|APP_NAME|$APP_NAME|g")
-            echo "$INGRESS_CONFIG" | kubectl patch ingress -f -
+            echo "$INGRESS_CONFIG" | kubectl patch ingress my-ingress -f -
             # Wait for deployment to finish
             kubectl rollout status deployment/helloweb
             kubectl get pods
