@@ -82,7 +82,7 @@ jobs:
             APP_NAME=$(cat workspace/app_name)
             NAMESPACE=$(cat workspace/namespace)
             # Create namespace
-            kubectl create $NAMESPACE 
+            kubectl create namespace $NAMESPACE 
             # Replace placeholders in manifest
             KUBE_CONFIG=$(cat hello-app/manifests/helloweb-all-in-one.yaml.template | sed -e "s|DOCKER_IMAGE_NAME|$FULL_DOCKER_IMAGE_NAME|g" -e "s|APP_NAME|$APP_NAME|g")
             echo "$KUBE_CONFIG" | kubectl apply -f -
