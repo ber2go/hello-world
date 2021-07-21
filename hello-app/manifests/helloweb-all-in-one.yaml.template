@@ -39,7 +39,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: my-ingress
+  name: pr-ingress
   namespace: APP_NAME
   annotations:
     # If the class annotation is not specified it defaults to "gce".
