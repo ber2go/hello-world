@@ -9,7 +9,7 @@ spec:
     app: hello
     tier: web
   ports:
-  - port: 70000
+  - port: 60001
     targetPort: 8080
   type: NodePort
 ---
@@ -43,7 +43,7 @@ metadata:
     kubernetes.io/ingress.class: "gce"
   spec:
     rules:
-      - host: SUBDOMAIN.ber2go.com
+      - host: APP_NAME.ber2go.com
         http:
           paths:
           - path: /
@@ -52,4 +52,4 @@ metadata:
               service:
                 name: APP_NAME
                 port:
-                  number: 70000
+                  number: 60001
