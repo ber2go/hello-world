@@ -108,13 +108,13 @@ workflows:
       - deploy:
           requires:
             - build
-          filters:
-            branches:
-              only: main
-      - deploy-pr:
-          requires:
-            - build
-          filters:
-            branches:
-              only: /pr\/.*/
+      #     filters:
+      #       branches:
+      #         only: main
+      # - deploy-pr:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only: /pr\/.*/
           
